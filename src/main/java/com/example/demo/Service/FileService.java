@@ -77,7 +77,8 @@ public class FileService {
 
 	
 	private String getConnection() {
-		String storageConnectionString = "YPUR_CONNECTION_STRING";
+		String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=storageaccticonciabh;AccountKey=0ErFHkv287yAElMSsxoPVKSvRFAI+wDKqkVE6k/Tkg13sZG9TS+2C+VvYwO6W2EFC/ff/1oQPvM1OmUdrTwSNA==;EndpointSuffix=core.windows.net";
+
 		 return storageConnectionString;
 		 
 		}
