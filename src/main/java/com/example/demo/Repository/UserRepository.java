@@ -5,4 +5,8 @@ import com.example.demo.Domain.User;
 
 public interface UserRepository extends JpaRepository<User,Long>{
 
+	User findByDescription(String username);
+	
+	
+
 }
