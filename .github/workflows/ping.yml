@@ -1,0 +1,39 @@
+name: Ping API
+
+on:
+  schedule:
+    # Every 5 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    name: Ping public endpoint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Ping
+        shell: bash
+        env:
+          # Prefer setting this as a GitHub Actions Variable named PING_URL.
+          # Settings -> Secrets and variables -> Actions -> Variables
+          PING_URL: ${{ vars.PING_URL }}
+        run: |
+          set -euo pipefail
+
+          url="${PING_URL:-https://f-97zy.onrender.com/api/ping}"
+
+          echo "Pinging: $url"
+
+          # --fail-with-body makes curl exit non-zero on non-2xx while still printing the response body.
+          curl --silent --show-error --location \
+            --request GET \
+            --connect-timeout 10 \
+            --max-time 30 \
+            --retry 5 \
+            --retry-delay 5 \
+            --retry-all-errors \
+            --fail-with-body \
+            --write-out "\n\nHTTP %{http_code}\n" \
+            "$url"
